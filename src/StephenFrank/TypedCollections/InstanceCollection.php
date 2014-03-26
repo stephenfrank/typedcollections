@@ -5,17 +5,21 @@ namespace StephenFrank\TypedCollections;
 
 class InstanceCollection extends TypedCollection
 {
-    public function __construct($values, $instanceType)
+    public function __construct($values = [], $instanceType = null)
     {
-        $this->instanceType = $instanceType;
+        if (!$instanceType && !$this->type) {
+            throw new \InvalidArgumentException('InstanceCollection requires a defined type');
+        }
 
-        parent::__construct($values);
+        parent::__construct($values, $instanceType);
     }
 
     public function checkType($value)
     {
-        if (! $value instanceof $this->instanceType) {
-            throw new \InvalidArgumentException("ClassCollection of type $this->instanceType cannot accept instance of ".get_class($value));
+        if (!$value instanceof $this->type) {
+            throw new \InvalidArgumentException(
+                'InstanceCollection of type ' . $this->type . ' cannot accept instance of ' . get_class($value)
+            );
         }
     }
 }

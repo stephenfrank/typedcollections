@@ -111,7 +111,7 @@ class TypedCollectionTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage ClassCollection of type ArrayAccess cannot accept instance of stdClass
+     * @expectedExceptionMessage InstanceCollection of type ArrayAccess cannot accept instance of stdClass
      */
     public function testInstanceCollectionException()
     {
@@ -119,4 +119,29 @@ class TypedCollectionTest extends \PHPUnit_Framework_TestCase
     }
 
 
+    public function testExtendedCollection()
+    {
+        $intances = new AcmeResourceCollection([new AcmeResource]);
+
+        $intances = new AcmeResourceCollection;
+        $intances[] = new AcmeResource;
+    }
+
+    /**
+     * @expectedException InvalidArgumentException
+     * @expectedExceptionMessage InstanceCollection of type StephenFrank\TypedCollections\AcmeResource cannot accept instance of stdClass
+     */
+    public function testExtendedCollectionException()
+    {
+        $intances = new AcmeResourceCollection([new AcmeResource]);
+        $intances[] = new \StdClass;
+    }
+
 }
+
+class AcmeResourceCollection extends InstanceCollection
+{
+    protected $type = 'StephenFrank\\TypedCollections\\AcmeResource';
+}
+
+class AcmeResource {}
