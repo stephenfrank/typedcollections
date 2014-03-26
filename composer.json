@@ -1,0 +1,15 @@
+{
+    "name": "stephenfrank/typedcollections",
+    "description": "Collection classes for strict(ish) typing",
+    "authors": [
+        {
+            "name": "Stephen Frank",
+            "email": "stephen@flowsa.com"
+        }
+    ],
+		"autoload": {
+			"psr-0": {
+				"StephenFrank\\TypedCollections": "src"
+			}
+		}
+}
